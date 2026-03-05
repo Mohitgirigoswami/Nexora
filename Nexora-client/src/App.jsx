@@ -1,34 +1,35 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import SidebarComponent from './components/SidebarComponent';
+import AIInteractionHub from './components/AIInteractionHub';
+import ExecutionTimeline from './components/ExecutionTimeline';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [collapsed, setCollapsed] = useState(false);
+  const [goal, setGoal] = useState('');
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="flex h-screen w-full bg-[#111827] text-[#f3f4f6] font-sans selection:bg-cyan-500/30 overflow-hidden">
+      
+      {/* 1. GLOBAL SIDEBAR (LEFT) */}
+      <SidebarComponent 
+        collapsed={collapsed} 
+        setCollapsed={setCollapsed} 
+      />
+
+      {/* MAIN CONTENT AREA (CENTER + RIGHT) */}
+      <div className="flex-1 flex overflow-hidden relative">
+        
+        {/* 2. AI INTERACTION HUB (CENTER) */}
+        <AIInteractionHub 
+          goal={goal} 
+          setGoal={setGoal} 
+        />
+
+        {/* 3. EXECUTION TIMELINE / TIMETABLE (RIGHT) */}
+        <ExecutionTimeline />
+        
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
