@@ -1,9 +1,11 @@
 import flask
 from model import db
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 import os
 
 App = flask.Flask(__name__)
+CORS(App) # Enable CORS for all routes
 
 # Configuration
 App.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///nexora.db'
