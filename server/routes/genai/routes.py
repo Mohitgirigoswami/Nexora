@@ -25,8 +25,6 @@ def generate_tasks():
             model="gemini-2.0-flash",
             contents=prompt,
         )
-        
-        # Clean the response text in case it contains markdown blocks despite the prompt
         response_text = response.text.strip()
         if response_text.startswith("```json"):
             response_text = response_text[7:]

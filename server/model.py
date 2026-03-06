@@ -68,7 +68,6 @@ class Task(db.Model):
     description = db.Column(db.Text, nullable=True)
     date = db.Column(db.Date, nullable=True) # Stores standard YYYY-MM-DD
     duration_minutes = db.Column(db.Integer, nullable=True)
-    is_ai = db.Column(db.Boolean, default=False)
     color = db.Column(db.String(50), nullable=True)
     status = db.Column(db.String(20), default='pending') # e.g., 'done', 'pending'
     active = db.Column(db.Boolean, default=False)
@@ -85,7 +84,6 @@ class Task(db.Model):
             "description": self.description,
             "date": self.date.isoformat() if self.date else None,
             "duration_minutes": self.duration_minutes,
-            "is_ai": self.is_ai,
             "color": self.color,
             "status": self.status,
             "active": self.active,
