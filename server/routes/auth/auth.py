@@ -71,7 +71,7 @@ def login():
         
     user = User.query.filter_by(email=email).first()
     if user and user.check_password(password):
-        return jsonify({"msg": "Login successful", "user": user.to_dict(),"jwt" : create_access_token(identity=user.id)}), 200
+        return jsonify({"msg": "Login successful", "user": user.to_dict(),"jwt" : create_access_token(identity=str(user.id))}), 200
         
     return jsonify({"msg": "Invalid credentials"}), 401
 

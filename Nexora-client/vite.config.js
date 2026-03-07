@@ -8,4 +8,11 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    proxy: {
+      '/main': 'http://localhost:8000',
+      '/auth': 'http://localhost:8000',
+      '/genai': 'http://localhost:8000',
+    },
+  },
 })

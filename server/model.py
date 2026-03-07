@@ -44,10 +44,10 @@ class Goal(db.Model):
     description = db.Column(db.Text, nullable=True)
     status = db.Column(db.String(20), default='pending')
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now)
     uuid = db.Column(db.String(36), unique=True, default=lambda: str(uuid.uuid4()))
 
-    tasks = db.relationship('Task', backref='goal', lazy=True)
+    tasks = db.relationship('Task', backref='goal', lazy=True, cascade="all, delete-orphan")
 
     def to_dict(self):
         return {

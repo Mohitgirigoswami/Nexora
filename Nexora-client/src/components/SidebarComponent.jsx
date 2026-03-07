@@ -1,11 +1,13 @@
 import { Sidebar, Menu, MenuItem, sidebarClasses } from 'react-pro-sidebar';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   HomeIcon, 
   DashboardIcon, 
   ComponentsIcon, 
   SettingsIcon, 
   SidebarToggleIcon,
-  SparklesIcon
+  SparklesIcon,
+  TaskIcon
 } from './Icons';
 
 const sidebarTheme = {
@@ -38,7 +40,15 @@ const menuItemStyles = {
   }),
 };
 
-const SidebarComponent = ({ collapsed, setCollapsed }) => {
+const SidebarComponent = ({ collapsed, setCollapsed , me }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
     <Sidebar 
       collapsed={collapsed}
@@ -60,7 +70,7 @@ const SidebarComponent = ({ collapsed, setCollapsed }) => {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
               <SparklesIcon className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-black bg-gradient-to-r from-cyan-400 to-white bg-clip-text text-transparent tracking-tighter">
+            <span className="text-xl font-black bg-linear-to-r from-cyan-400 to-white bg-clip-text text-transparent tracking-tighter">
               NEXORA
             </span>
           </div>
@@ -75,25 +85,39 @@ const SidebarComponent = ({ collapsed, setCollapsed }) => {
 
       <div className="flex-1 mt-4 overflow-y-auto no-scrollbar">
         <Menu menuItemStyles={menuItemStyles}>
-          <MenuItem icon={<HomeIcon />} active> Home </MenuItem>
-          <MenuItem icon={<DashboardIcon />}> Active Goals </MenuItem>
-          <MenuItem icon={<ComponentsIcon />}> Analytics </MenuItem>
-          <MenuItem icon={<SettingsIcon />}> Settings </MenuItem>
+          <MenuItem 
+            icon={<HomeIcon />} 
+            active={location.pathname === '/'}
+            component={<Link to="/" />}
+          > 
+            Home 
+          </MenuItem>
+          <MenuItem 
+            icon={<TaskIcon />} 
+            active={location.pathname === '/tasks'}
+            component={<Link to="/tasks" />}
+          > 
+            Roadmap 
+          </MenuItem>
         </Menu>
       </div>
 
       <div className="p-4 border-t border-slate-800/50 bg-[#030712]">
-        <div className={`flex items-center gap-3 p-2.5 rounded-2xl transition-all duration-200 ${!collapsed ? 'hover:bg-slate-800/50 cursor-pointer group' : ''}`}>
+        <div 
+          onClick={handleLogout}
+          className={`flex items-center gap-3 p-2.5 rounded-2xl transition-all duration-200 ${!collapsed ? 'hover:bg-rose-500/10 cursor-pointer group' : 'cursor-pointer hover:bg-rose-500/10'}`}
+          title="Logout"
+        >
           <div className="relative">
-            <div className="w-9 h-9 min-w-[36px] rounded-full bg-gradient-to-br from-cyan-500 to-purple-500 flex items-center justify-center text-xs font-black text-white ring-2 ring-slate-900 shadow-xl group-hover:scale-110 transition-transform">
-              MG
+            <div className="w-9 h-9 min-w-9 rounded-full bg-linear-to-br from-cyan-500 to-purple-500 flex items-center justify-center text-xs font-black text-white ring-2 ring-slate-900 shadow-xl group-hover:scale-110 transition-transform">
+              {((me?.first_name?.[0] || 'M') + (me?.last_name?.[0] || 'G')).toUpperCase()}
             </div>
             <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-500 rounded-full border-2 border-[#030712]"></div>
           </div>
           {!collapsed && (
             <div className="flex flex-col overflow-hidden">
-              <span className="text-sm font-bold text-slate-200 truncate group-hover:text-white transition-colors">Mohit Giri</span>
-              <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest truncate">Administrator</span>
+              <span className="text-sm font-bold text-slate-200 truncate group-hover:text-white transition-colors">{(me?.first_name || 'User') + " " + (me?.last_name || '')}</span>
+              <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest truncate group-hover:text-rose-400 transition-colors">Logout</span>
             </div>
           )}
         </div>

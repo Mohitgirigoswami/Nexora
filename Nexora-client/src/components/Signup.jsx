@@ -19,7 +19,7 @@ const Signup = () => {
     e.preventDefault();
     setError('');
     try {
-      const response = await fetch('http://localhost:8000/auth/register', {
+      const response = await fetch('/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -27,7 +27,7 @@ const Signup = () => {
       const data = await response.json();
       if (response.ok) {
         // Trigger verification email
-        await fetch('http://localhost:8000/auth/send-verification-email', {
+        await fetch('/auth/send-verification-email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: formData.email })

@@ -151,6 +151,9 @@ def update_task(task_id):
     task.status = data.get("status", task.status)
     task.active = data.get("active", task.active)
     
+    if "goal_id" in data:
+        task.goal_id = data.get("goal_id")
+    
     db.session.commit()
     
     return jsonify({"msg": "Task updated successfully", "task": task.to_dict()}), 200
@@ -172,3 +175,38 @@ def update_goal(goal_id):
     db.session.commit()
     
     return jsonify({"msg": "Goal updated successfully", "goal": goal.to_dict()}), 200
+
+@main_bp.route("/delete_task/<int:task_id>", methods=["DELETE"])
+@jwt_required()
+def delete_task(task_id):
+    user_id = get_jwt_identity()
+    task = Task.query.filter_by(id=task_id, user_id=user_id).first()
+    if not task:
+        return jsonify({"error": "Task not found or unauthorized access"}), 404
+        
+    db.session.delete(task)
+    db.session.commit()
+    
+    return jsonify({"msg": "Task deleted successfully"}), 200
+
+@main_bp.route("/delete_goal/<int:goal_id>", methods=["DELETE"])
+@jwt_required()
+def delete_goal(goal_id):
+    user_id = get_jwt_identity()
+    goal = Goal.query.filter_by(id=goal_id, user_id=user_id).first()
+    if not goal:
+        return jsonify({"error": "Goal not found or unauthorized access"}), 404
+        
+    db.session.delete(goal)
+    db.session.commit()
+    
+    return jsonify({"msg": "Goal and associated tasks deleted successfully"}), 200
+
+@main_bp.route("/who_am_i", methods=["GET"])
+@jwt_required()
+def who_am_i():
+    user_id = get_jwt_identity()
+    user = User.query.filter_by(id=user_id).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+    return jsonify({"user": user.to_dict()}), 200
