@@ -22,7 +22,13 @@ OUTPUT SCHEMA (JSON Array of Objects):
     "is_ai": true,
     "color": "String (Standard hex color code suitable for dark mode UI, e.g., '#06b6d4')",
     "status": "pending",
-    "active": true
+    "active": true,
+    "resources": [
+      {{
+        "title": "String (e.g., 'React Documentation')",
+        "url": "String (A valid URL to a helpful resource)"
+      }}
+    ]
   }}
 ]
 
@@ -54,9 +60,22 @@ OUTPUT SCHEMA (JSON Array of Objects):
     "is_ai": true,
     "color": "String",
     "status": "pending",
-    "active": true
+    "active": true,
+    "resources": [
+      {{
+        "title": "String",
+        "url": "String"
+      }}
+    ]
   }}
 ]
+
+RESOURCE GUIDELINES:
+- For each task, provide 1-3 highly relevant resources.
+- Resources can include: Official documentation, reputable tutorial sites (MDN, StackOverflow, YouTube), or productivity tools.
+- Ensure URLs are valid and directly related to the task's technical or practical requirements.
+- If no specific resource is found, provide a search query URL (e.g., 'https://www.google.com/search?q=...') as a fallback.
+
 
 <current_tasks>
 {tasks_json}

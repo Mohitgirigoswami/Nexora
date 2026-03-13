@@ -46,7 +46,8 @@ def add_goal():
                 status=t.get("status", "pending"),
                 active=t.get("active", True),
                 user_id=user_id,
-                goal_id=new_goal.id
+                goal_id=new_goal.id,
+                resources=t.get("resources", [])
             )
             db.session.add(task)
             created_tasks.append(task)

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircleIcon, CalendarIcon, TrashIcon, EditIcon } from './Icons';
+import { CheckCircleIcon, CalendarIcon, TrashIcon, EditIcon, LinkIcon } from './Icons';
 
 const TaskComponent = ({ task, onEdit, onDelete, onUpdate }) => {
   const [isUpdatingStatus, setIsUpdatingStatus] = useState(false);
@@ -94,6 +94,24 @@ const TaskComponent = ({ task, onEdit, onDelete, onUpdate }) => {
           <p className={`text-sm leading-relaxed mb-4 ${isDone ? 'text-slate-600' : 'text-slate-400'}`}>
             {task.description || 'No description provided.'}
           </p>
+
+          {task.resources && task.resources.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-4">
+              {task.resources.map((res, idx) => (
+                <a 
+                  key={idx}
+                  href={res.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900/50 border border-slate-700/50 text-[10px] font-bold text-cyan-400 hover:bg-cyan-500/10 hover:border-cyan-500/30 transition-all"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <LinkIcon className="w-3 h-3" />
+                  {res.title}
+                </a>
+              ))}
+            </div>
+          )}
           
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">

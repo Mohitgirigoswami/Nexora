@@ -75,6 +75,7 @@ class Task(db.Model):
     goal_id = db.Column(db.Integer, db.ForeignKey('goals.id'), nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     uuid = db.Column(db.String(36), unique=True, default=lambda: str(uuid.uuid4()))
+    resources = db.Column(db.JSON, nullable=True) # Stores a list of {title, url}
 
     def to_dict(self):
         return {
@@ -89,7 +90,8 @@ class Task(db.Model):
             "active": self.active,
             "user_id": self.user_id,
             "goal_id": self.goal_id,
-            "created_at": self.created_at.isoformat()
+            "created_at": self.created_at.isoformat(),
+            "resources": self.resources if self.resources else []
         }
 
 class OTP(db.Model):

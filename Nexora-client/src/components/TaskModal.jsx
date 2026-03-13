@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlusIcon, XIcon, CalendarIcon, EditIcon } from './Icons';
+import { PlusIcon, XIcon, CalendarIcon, EditIcon, LinkIcon } from './Icons';
 
 const TaskModal = ({ 
   isOpen, 
@@ -16,8 +16,8 @@ const TaskModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-slate-950/80 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative w-full max-w-lg bg-[#1e293b] rounded-3xl border border-slate-700 shadow-2xl overflow-hidden">
-        <div className="flex items-center justify-between p-6 border-b border-slate-700/50 bg-slate-800/30">
+      <div className="relative w-full max-w-lg bg-[#1e293b] rounded-3xl border border-slate-700 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col">
+        <div className="flex items-center justify-between p-6 border-b border-slate-700/50 bg-slate-800/30 shrink-0">
           <div className="flex items-center gap-3">
             <div className="p-2 bg-cyan-500/10 rounded-xl">
               {editingTask ? <EditIcon className="w-5 h-5 text-cyan-400" /> : <PlusIcon className="w-5 h-5 text-cyan-400" />}
@@ -27,7 +27,7 @@ const TaskModal = ({
           <button onClick={onClose} className="p-2 hover:bg-slate-800/50 rounded-xl transition-colors text-slate-400 hover:text-white"><XIcon /></button>
         </div>
 
-        <form onSubmit={handleCreateOrUpdateTask} className="p-6 space-y-5">
+        <form onSubmit={handleCreateOrUpdateTask} className="p-6 space-y-5 overflow-y-auto custom-scrollbar">
           <div className="space-y-2">
             <label className="text-sm font-semibold text-slate-400 ml-1">Task Title</label>
             <input autoFocus required type="text" placeholder="What needs to be done?" className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition-all" value={newTask.title} onChange={(e) => setNewTask({...newTask, title: e.target.value})} />
@@ -56,6 +56,23 @@ const TaskModal = ({
             <label className="text-sm font-semibold text-slate-400 ml-1">Description</label>
             <textarea placeholder="Add details..." rows="3" className="w-full bg-slate-900/50 border border-slate-700 rounded-2xl px-5 py-4 text-white placeholder:text-slate-600 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 transition-all resize-none" value={newTask.description} onChange={(e) => setNewTask({...newTask, description: e.target.value})}></textarea>
           </div>
+
+          {newTask.resources && newTask.resources.length > 0 && (
+            <div className="space-y-3">
+              <label className="text-sm font-semibold text-slate-400 ml-1">AI-Generated Resources</label>
+              <div className="space-y-2">
+                {newTask.resources.map((res, idx) => (
+                  <div key={idx} className="flex items-center justify-between p-3 bg-slate-900/50 border border-slate-700 rounded-xl">
+                    <div className="flex items-center gap-3 overflow-hidden">
+                      <LinkIcon className="w-4 h-4 text-cyan-500 shrink-0" />
+                      <span className="text-xs text-slate-300 truncate">{res.title}</span>
+                    </div>
+                    <a href={res.url} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-cyan-500 hover:text-cyan-400 uppercase tracking-widest px-2 py-1 bg-cyan-500/10 rounded-lg shrink-0">Visit</a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
