@@ -100,7 +100,31 @@ def send_verification_email():
         email_sent = send_email(
             to_email=email,
             subject="Nexora Email Verification",
-            body=f"Your OTP code for email verification is: {otp_code}. It will expire in 10 minutes."
+            body=f"""
+            <html>
+            <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+                <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                    <h2 style="color: #333; text-align: center;">Welcome to Nexora!</h2>
+                    <p style="color: #666; font-size: 16px; line-height: 1.6;">
+                        Thank you for registering with Nexora. To complete your email verification, please use the OTP code below:
+                    </p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <span style="display: inline-block; background-color: #007bff; color: white; padding: 15px 30px; font-size: 24px; font-weight: bold; border-radius: 5px; letter-spacing: 2px;">
+                            {otp_code}
+                        </span>
+                    </div>
+                    <p style="color: #666; font-size: 14px;">
+                        This code will expire in <strong>10 minutes</strong>. If you didn't request this verification, please ignore this email.
+                    </p>
+                    <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+                    <p style="color: #999; font-size: 12px; text-align: center;">
+                        Nexora - Your AI-Powered Roadmap Planner
+                    </p>
+                </div>
+            </body>
+            </html>
+            """,
+            is_html=True
         )
         
         if not email_sent:

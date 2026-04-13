@@ -1,0 +1,92 @@
+Capstone Project Synopsis 
+On 
+Nexora : AI-Powered Task & Goal Manager 
+Submitted during 3rd semester in partial fulfilment of the requirements for 
+the award of degree of 
+Bachelor of Technology 
+in 
+Computer Engineering 
+by 
+Mohit Giri Goswami(24001003080) 
+Under supervision of 
+Ms. Yojana 
+Department of Computer Engineering 
+FACULTY OF INFORMATICS & COMPUTING 
+J.C. Bose University of Science & Technology, YMCA 
+Faridabad – 121006 
+Aug-Dec 2025 
+
+TABLE OF CONTENTS 
+1. INTRODUCTION                                                                                
+   1.1 BRIEF OF THE PROJECT                                                
+   1.2 TECHNOLOGIES USED                                                   
+2. PROPOSED METHODOLOGY                                          
+3. APPLICATIONS AND SCOPE                                             
+   3.1 APPLICATIONS                                                                
+   3.2 SCOPE                                                                                
+
+1. INTRODUCTION 
+1.1 BRIEF OF THE PROJECT 
+Managing complex projects and long-term goals often leads to cognitive overload. Users frequently struggle to break down high-level objectives into specific, manageable steps. Existing task managers often provide the container but not the content, leaving the heavy lifting of planning to the user.
+
+Nexora is an intelligent task management application designed to solve this problem. It leverages Generative AI (Google Gemini Pro) to transform user goals into precise, actionable roadmaps. By analyzing natural language input, Nexora automatically generates a structured list of tasks, estimates durations, and suggests relevant resources.
+
+Key features include:
+• AI-Driven Task Generation: Instant conversion of goals into actionable tasks.
+• Strategic Visualization: Interactive Roadmap and Timeline views for clear execution paths.
+• Multi-Layered Security: Secure authentication using JWT and Bcrypt password hashing.
+• Smart Notifications: Email-based alerts for OTP verification and critical task updates.
+• AI Interaction Hub: A dedicated space to refine and optimize generated tasks in real-time.
+
+1.2 TECHNOLOGIES USED 
+Nexora is built on a robust Full-Stack architecture designed for speed and security.
+
+• Frontend: React.js + Vite
+  - Why Used: Vite provides an ultra-fast development environment, while React allows for a highly responsive UI.
+• Styling: Tailwind CSS
+  - Why Used: Enables rapid development of a modern, "Nexora-Dark" aesthetic with a utility-first approach.
+• Backend: Flask (Python)
+  - Why Used: A lightweight yet powerful framework ideal for building RESTful APIs and integrating AI SDKs.
+• AI Engine: Google Gemini API (gemini-3-flash-preview)
+  - Why Used: Provides advanced reasoning to "decrypt" user goals into structured task data.
+• Database: SQLite with SQLAlchemy ORM
+  - Why Used: Offers a reliable SQL database with a powerful abstraction layer for secure data persistence.
+• Email Services: SMTP (Simple Mail Transfer Protocol)
+  - Why Used: Integrated to handle automated email notifications for OTPs and user alerts.
+• Security & Auth: JWT (JSON Web Tokens) & Bcrypt
+  - Why Used: Ensures secure, stateless session management and industry-standard credential hashing.
+
+2. PROPOSED METHODOLOGY 
+The development of Nexora follows an iterative lifecycle focused on AI integration and user security.
+
+1. System Architecture Design:
+   - Defining the logic for mapping natural language inputs to structured task schemas.
+   - Designing the interaction between the React frontend, Flask backend, and Gemini AI.
+2. Backend & Security Implementation:
+   - Setting up the Flask server with JWT-based authentication.
+   - Implementing secure user onboarding with Bcrypt hashing and SMTP-based email services.
+3. AI Integration Layer:
+   - Crafting precise prompts for Gemini to ensure consistent JSON outputs for tasks.
+   - Implementing refinement logic to allow users to modify AI-generated plans.
+4. Frontend Orchestration:
+   - Building interactive components like the AI Interaction Hub and Execution Timeline.
+   - Integrating real-time state management for a seamless user experience.
+
+3. APPLICATIONS AND SCOPE 
+3.1 APPLICATIONS 
+• Individual Productivity: Assists students and professionals in breaking down learning paths.
+• Project Planning: Automatically generates initial roadmaps for new projects or hobbies.
+• Educational Tool: Demonstrates the practical use of Generative AI in software solutions.
+
+3.2 SCOPE 
+Current Scope:
+• Functional AI-driven task generation and refinement.
+• Secure user authentication system with Email OTP.
+• Automated Email Notifications for account and task activities.
+• Interactive visualization of goals and tasks via Timeline views.
+
+Future Scope:
+• Evolution into a Productivity Ecosystem: Transitioning from a single app to a suite of integrated tools.
+• Real-time Team Collaboration: Allowing multiple users to work on the same roadmap.
+• Third-Party Integrations: Connecting with tools like Slack, GitHub, or Google Calendar.
+• Advanced AI Analytics: Predicting productivity trends based on completion history.

@@ -10,6 +10,7 @@ const AIInteractionHub = ({ goal, setGoal }) => {
   const [generatedTasks, setGeneratedTasks] = useState([]);
   const [editingIndex, setEditingIndex] = useState(null);
   const [refineInput, setRefineInput] = useState('');
+  const [selectedModel, setSelectedModel] = useState('gemini-3-flash-preview');
   const navigate = useNavigate();
 
   const handleGenerateStrategy = async () => {
@@ -26,7 +27,7 @@ const AIInteractionHub = ({ goal, setGoal }) => {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ query: goal })
+        body: JSON.stringify({ query: goal, model: selectedModel })
       });
 
       const data = await response.json();
@@ -175,7 +176,18 @@ const AIInteractionHub = ({ goal, setGoal }) => {
                 </div>
               )}
 
-              <div className="flex items-center justify-end px-6 py-4 bg-slate-900/30 border-t border-slate-800/50">
+              <div className="flex items-center justify-between px-6 py-4 bg-slate-900/30 border-t border-slate-800/50">
+                <div className="flex items-center gap-4">
+                  <label className="text-sm text-slate-400 font-medium">Model:</label>
+                  <select
+                    value={selectedModel}
+                    onChange={(e) => setSelectedModel(e.target.value)}
+                    className="bg-slate-800/50 border border-slate-600/50 rounded-lg px-3 py-1 text-sm text-white focus:outline-none focus:border-cyan-500"
+                  >
+                    <option value="gemini-3-flash-preview">Gemini 3 Flash Preview</option>
+                    <option value="gemini-3.1-flash-lite-preview">Gemini 3.1 Flash Lite Preview</option>
+                  </select>
+                </div>
                 <button 
                   onClick={handleGenerateStrategy}
                   disabled={loading || isSaving || isRefining || !goal.trim()}

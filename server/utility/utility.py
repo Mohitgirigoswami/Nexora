@@ -22,7 +22,7 @@ def check_password_strength(password):
         return False
     return True
 
-def send_email(to_email, subject, body):
+def send_email(to_email, subject, body, is_html=False):
     sender_email = os.getenv('EMAIL_USER')
     sender_password = os.getenv('EMAIL_PASSWORD')
     
@@ -34,7 +34,7 @@ def send_email(to_email, subject, body):
     msg['From'] = sender_email
     msg['To'] = to_email
     msg['Subject'] = subject
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, 'html' if is_html else 'plain'))
 
     try:
         with smtplib.SMTP('smtp.gmail.com', 587) as server:

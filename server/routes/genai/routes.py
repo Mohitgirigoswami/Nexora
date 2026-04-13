@@ -27,16 +27,21 @@ client = genai.Client(
 def generate_tasks():
     data = request.get_json()
     query = data.get("query")
+    model = data.get("model", "gemini-3-flash-preview")
 
     if not query:
         return jsonify({"error": "Query is required"}), 400
+
+    allowed_models = ["gemini-3-flash-preview", "gemini-3.1-flash-lite-preview"]
+    if model not in allowed_models:
+        return jsonify({"error": f"Invalid model. Allowed models: {', '.join(allowed_models)}"}), 400
 
     current_date = datetime.now().strftime("%Y-%m-%d")
     prompt = get_task_generation_prompt(query, current_date)
 
     try:
         response = client.models.generate_content(
-            model="gemini-3-flash-preview",
+            model=model,
             contents=prompt,
             config=types.GenerateContentConfig(
                 response_mime_type="application/json" # Forces pure JSON output

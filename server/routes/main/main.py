@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from model import db, User, Task, Goal
+from utility.utility import send_email
 from datetime import datetime
 
 main_bp = Blueprint("Main", __name__)
@@ -53,6 +54,42 @@ def add_goal():
             created_tasks.append(task)
             
         db.session.commit()
+        
+        # Send email notification
+        user = User.query.get(user_id)
+        if user and user.email:
+            subject = 'New Roadmap Generated'
+            body = f"""
+            <html>
+            <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;">
+                <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+                    <h2 style="color: #333; text-align: center;">New Roadmap Created!</h2>
+                    <p style="color: #666; font-size: 16px; line-height: 1.6;">
+                        Hi {user.first_name},<br><br>
+                        A new roadmap has been successfully generated and added to your Nexora account.
+                    </p>
+                    <div style="background-color: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0;">
+                        <h3 style="color: #333; margin: 0 0 10px 0;">Roadmap Details:</h3>
+                        <p style="margin: 0; color: #666;"><strong>Title:</strong> {title}</p>
+                        <p style="margin: 5px 0 0 0; color: #666;"><strong>Description:</strong> {description or 'No description provided'}</p>
+                        <p style="margin: 5px 0 0 0; color: #666;"><strong>Tasks:</strong> {len(tasks_data)} tasks included</p>
+                    </div>
+                    <p style="color: #666; font-size: 14px;">
+                        Log in to your Nexora account to view and manage your roadmap.
+                    </p>
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="http://localhost:5173" style="background-color: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold;">View Your Roadmap</a>
+                    </div>
+                    <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+                    <p style="color: #999; font-size: 12px; text-align: center;">
+                        Nexora - Your AI-Powered Roadmap Planner
+                    </p>
+                </div>
+            </body>
+            </html>
+            """
+            send_email(user.email, subject, body, is_html=True)
+        
         return jsonify({
             "msg": "Goal and tasks added successfully", 
             "goal": new_goal.to_dict()

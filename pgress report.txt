@@ -1,0 +1,75 @@
+J. C. BOSE UNIVERSITY OF SCIENCE & TECHNOLOGY, 
+YMCA, FARIDABAD 
+DEPARTMENT OF COMPUTER ENGINEERING 
+Progress Report for B.Tech. Capstone Project 
+2
+nd Progress Report (Sept./Oct. 2025)
+1. Name of Student : Mohit Giri Goswami 
+2. Name of Mentor : Ms. Yojana 
+3. Roll No. : 24001003080 
+4. Name of team member : Vinita 
+5. Roll No of team member : 25001003517 
+6. Title of Project : Loan Approval Prediction System using ML
+Progress Summary 
+The Web Development phase for the Loan Approval Predictor is well underway. 
+The Flask application scaffolding is complete, and core frontend components for 
+prediction, visualization, and model comparison are developed. Focus is now on 
+integrating all trained ML models into the backend and enhancing frontend 
+interactivity. 
+Tasks Completed 
+ Machine Learning Pipeline: The end-to-end machine learning pipeline is 
+complete. All trained models are ready for integration. 
+ API Endpoint Design: Completed the design of API endpoints in app.py for serving 
+all trained models, including considerations for model selection and versioning. 
+ Model Optimization: Optimized trained models for efficient inference within the 
+web application environment. 
+ Initial API Development: Implemented the core API structure in app.py to expose 
+prediction functionality. 
+ Documentation Update (ML-related): Updated internal documentation related 
+to model usage and API specifications. 
+ Web Application Scaffolding: 
+o Set up a Flask web server in app.py. 
+o Organized the project structure with templates/ for HTML files and 
+static/ for CSS, JavaScript, and images.
+ Frontend Development: 
+o Created the main user interface for the prediction form (predictor.html). 
+o Developed pages to display exploratory data analysis (visualizations.html) 
+and model performance metrics (comparison.html). 
+o Applied custom styling using static/css/style.css to create a consistent look 
+and feel.
+J. C. BOSE UNIVERSITY OF SCIENCE & TECHNOLOGY, 
+YMCA, FARIDABAD 
+DEPARTMENT OF COMPUTER ENGINEERING 
+Progress Report for B.Tech. Capstone Project 
+1
+st Progress Report (Sept./Oct. 2025)
+1. Name of Student : Mohit Giri Goswami 
+2. Name of Mentor : Ms. Yojana 
+3. Roll No. : 24001003080 
+4. Name of team member : Vinita 
+5. Roll No of team member : 25001003517 
+6. Title of Project : Loan Approval Prediction System using ML
+Progress Summary 
+The Machine Learning pipeline for the Loan Approval Predictor is now fully 
+developed and evaluated. All data acquisition, preprocessing, model training 
+(including Logistic Regression and MLP), and comprehensive evaluation have been 
+completed. Focus is now on designing the API endpoints to serve all trained 
+models for predictions. 
+Tasks Completed
+ Data Acquisition: Collected the credit risk dataset 
+(Data/credit_risk_dataset.csv). 
+ Data Preprocessing: Implemented data cleaning, handling of missing values, 
+and feature engineering in Data.py. 
+ Exploratory Data Analysis (EDA): Generated various plots to understand the 
+data distributions and correlations using Visualize.py. The resulting charts are 
+stored in the plots/ directory. 
+ Model Development: 
+o Implemented and trained multiple models, including Logistic Regression 
+and a Multi-Layer Perceptron (MLP), in Model.py. 
+o Trained both standard and weighted versions of models to address class 
+imbalance. 
+ Model Evaluation & Comparison: 
+o Compared the performance of different models using metrics like 
+accuracy, precision, recall, and F1-score in compare_models.py. 
+o Saved trained models (.joblib) and their evaluation reports (.json) in the 
+models/ directory.
