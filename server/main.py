@@ -1,8 +1,10 @@
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from app import App
 from routes import register_routes
 import routes
-from dotenv import load_dotenv
-load_dotenv()
 
 register_routes(App)
 
